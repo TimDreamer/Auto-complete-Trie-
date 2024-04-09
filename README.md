@@ -1,5 +1,9 @@
 # Implement simple autocomplete system using Trie
 
+## Dataset
+
+Credit: https://www.kaggle.com/datasets/wheelercode/english-word-frequency-list?resource=download
+
 ## Notes
 
 1. In order to compare performance between our implementation and linear scan, we get all the matched strings only slice them before rendering.

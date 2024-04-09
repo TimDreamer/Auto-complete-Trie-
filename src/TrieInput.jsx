@@ -1,11 +1,10 @@
 import React from 'react'
 import Trie from './Trie'
-import RecommendBlock from './RecommendBlock'
+import CoreInput from './CoreInput'
 
 function TrieInput({ words }) {
   const trie = React.useRef(null)
   const [keywords, setKeywords] = React.useState(words.slice(0, 20))
-  const [text, setText] = React.useState('')
 
   React.useEffect(() => {
     if (trie.current === null) {
@@ -15,23 +14,21 @@ function TrieInput({ words }) {
 
   return (
     <div>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => {
-          setText(() => {
-            return e.target.value
-          })
+      <CoreInput
+        keywords={keywords}
+        update={(prefix) =>
           setKeywords(() => {
+            if (prefix.length === 0) {
+              return words.slice(0, 20)
+            }
             const begin = window.performance.now()
-            const newKeywords = trie.current.search(e.target.value)
+            const newKeywords = trie.current.search(prefix)
             const end = window.performance.now()
             console.log(`TrieInput Time: ${end - begin} ms`)
             return newKeywords.slice(0, 20)
           })
-        }}
+        }
       />
-      <RecommendBlock words={keywords} />
     </div>
   )
 }

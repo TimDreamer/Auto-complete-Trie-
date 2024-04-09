@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
-import RecommendBlock from './RecommendBlock'
+import CoreInput from './CoreInput'
 
 function NormalInput({ words }) {
-  const [text, setText] = React.useState('')
   const [keywords, setKeywords] = React.useState(words.slice(0, 20))
 
   const updateKeywords = useCallback(
@@ -26,17 +25,10 @@ function NormalInput({ words }) {
 
   return (
     <div>
-      <input
-        type="text"
-        value={text}
-        onChange={(e) => {
-          setText(() => {
-            return e.target.value
-          })
-          updateKeywords(e.target.value)
-        }}
+      <CoreInput
+        keywords={keywords}
+        update={updateKeywords}
       />
-      <RecommendBlock words={keywords} />
     </div>
   )
 }
