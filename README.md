@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Implement simple autocomplete system using Trie
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Notes
 
-## Available Scripts
+1. In order to compare performance between our implementation and linear scan, we get all the matched strings only slice them before rendering.
+2. We prepare four datasets (1,000,000, 100,000, 50,000, 1,000) and use the largest one as default.
+3. When we use default dataset, we can see that Trie is 10x faster than linear scan.
 
-In the project directory, you can run:
+## Complexity
 
-### `npm start`
+N: length of the words, L: length of the longest word, P: length of the searching prefix
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Time Complexity
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### build: O(NL)
 
-### `npm test`
+If you want to do sorting in the beginning, this will take O(NlogN).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### search: O(min(L, P))
 
-### `npm run build`
+Whenever we search the end of L or P, we return immediately. By the way, we need to go through word indexes, but if we only show/need 10 or 20 keywords at the same time, this takes O(1).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Space complexity
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### O(NL)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Someone may argue about this, but if you think about the worst case, all strings don't have common prefix, we have to create TrieNode for each character for each string, which consume O(NL) space. On the contrast, if some strings have common prefix, that means they share some TreeNodes, but we also store word indexes in TreeNodes to make search time O(min(L, P)), so we still consume O(NL) space.
