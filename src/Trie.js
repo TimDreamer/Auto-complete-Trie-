@@ -1,17 +1,14 @@
 // N: length of words, L: length of longest word, P: length of searching prefix
 // Time complexity:
-// build: O(NL + NlogN)
+// build: O(NL)
 // search: O(min(L, P))
 
 // Space complexity:
 // O(NL)
 class Trie {
-  constructor(words, comparison) {
+  constructor(words) {
     this.root = new Trie.TrieNode()
     this.words = words
-    if (typeof comparison === 'function') {
-      this.words.sort(comparison)
-    }
     const begin = window.performance.now()
     this.words.forEach((word, idx) => this.addWord(word, idx))
     const end = window.performance.now()
@@ -58,7 +55,7 @@ export default Trie
 
 // const lst = ['apple', 'banna', 'ban', 'ape', 'monkey', 'mocau', 'anil']
 // console.log(Trie.TrieNode)
-// const trie = new Trie(lst, (a, b) => a.localeCompare(b))
+// const trie = new Trie(lst)
 // console.log(trie)
 // console.log(trie.search('ap'))
 // console.log(trie.search('a'))

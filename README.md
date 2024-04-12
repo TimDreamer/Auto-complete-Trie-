@@ -12,13 +12,11 @@ Credit: https://www.kaggle.com/datasets/wheelercode/english-word-frequency-list?
 
 ## Complexity
 
-N: length of the words, L: length of the longest word, P: length of the searching prefix
+N: number of the words, L: length of the longest word, P: length of the searching prefix
 
 ### Time Complexity
 
 #### build: O(NL)
-
-If you want to do sorting in the beginning, this will take O(NlogN).
 
 #### search: O(min(L, P))
 
